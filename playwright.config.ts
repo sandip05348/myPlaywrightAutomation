@@ -66,6 +66,7 @@ export default defineConfig({
   ],
   
   use: {
+    baseURL: 'https://automationexercise.com',
     actionTimeout: 10 * 1000,
     navigationTimeout: 60 * 1000,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
