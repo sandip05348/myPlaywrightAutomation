@@ -3,7 +3,7 @@ import { defineConfig, devices } from '@playwright/test';
 // @ts-ignore
 import * as path from 'path';
 
- //Get today's date in YYYY-MM-DD format
+//Get today's date in YYYY-MM-DD format
 const today = new Date().toISOString().split('T')[0];
 
 // Define the allure results folder using today's date
@@ -23,9 +23,10 @@ const allureResultsFolder = path.join('allure-results', testEnv);
  */
 export default defineConfig({
   timeout: 900000, // Global timeout for each test (5 minutes)
-  globalTimeout: 20 * 60 * 1000,
-  
- testDir: './.',
+  testDir: './.',
+  expect: {
+    timeout: 5000  // Maximum time expect() should wait for the condition to be met (5 seconds)
+  },
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -64,20 +65,20 @@ export default defineConfig({
       },
     ],
   ],
-  
+
   use: {
     baseURL: 'https://automationexercise.com',
-    actionTimeout: 10 * 1000,
-    navigationTimeout: 60 * 1000,
+    actionTimeout: 10 * 1000,   //Indivisual action timeout (10 seconds)
+    navigationTimeout: 60 * 1000, //Indivisual navigation timeout (60 seconds)
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     headless: false,  // Run tests in headed mode (visible browser)
-    trace:'on-first-retry',
-    screenshot:'only-on-failure',
-    video:'retain-on-failure',
+    trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
 
     // Emulates `'prefers-colors-scheme'` media feature.
     colorScheme: 'dark',
-  
+
     // Context geolocation.
     geolocation: { longitude: 12.492507, latitude: 41.889938 },
 
@@ -96,21 +97,21 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { 
+      use: {
         ...devices['Desktop Chrome'],
         launchOptions: {
           args: ['--start-maximized'],
         },
       },
       fullyParallel: true,
-     },
-
-     {
-       name: 'firefox',
-       use: { ...devices['Desktop Firefox'] }
     },
 
-     {
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] }
+    },
+
+    {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] }
     },

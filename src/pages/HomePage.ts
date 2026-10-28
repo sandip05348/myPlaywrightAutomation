@@ -1,4 +1,5 @@
 import { Page, Locator } from '@playwright/test';
+import logger from '../utils/logger';
 
 export class HomePage {
   readonly page: Page;

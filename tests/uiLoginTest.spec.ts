@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../src/pages/LoginPage';
 import { HomePage } from '../src/pages/HomePage';
+import  logger from '../src/utils/logger';
 import { EMAIL, PASSWORD, INVALID_EMAIL, INVALID_PASSWORD } from '../src/common/constants';
 
 const validUser = { email: EMAIL, password: PASSWORD };
@@ -19,6 +20,7 @@ test.describe('Login', () => {
 
   test('TC01 - Login with valid credentials', async ({ page }) => {
     await loginPage.login(validUser.email, validUser.password);
+    logger.info('Test started: Login with valid email & password');
     await expect(homePage.loggedInAs).toBeVisible();
     await expect(homePage.logoutLink).toBeVisible();
     await expect(page).toHaveURL('/');
