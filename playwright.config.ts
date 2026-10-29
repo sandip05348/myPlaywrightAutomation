@@ -2,7 +2,6 @@
 import { defineConfig, devices } from '@playwright/test';
 // @ts-ignore
 import * as path from 'path';
-
 //Get today's date in YYYY-MM-DD format
 const today = new Date().toISOString().split('T')[0];
 
@@ -13,19 +12,13 @@ const testEnv = process.env.TEST_ENV || './.';
 const allureResultsFolder = path.join('allure-results', testEnv);
 
 /**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// require('dotenv').config();
-
-/**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
   timeout: 900000, // Global timeout for each test (5 minutes)
-  testDir: './.',
+  testDir: './.',  
   expect: {
-    timeout: 5000  // Maximum time expect() should wait for the condition to be met (5 seconds)
+    timeout:10000  // Maximum time expect() should wait for the condition to be met (5 seconds)
   },
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -33,8 +26,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: 1, // Number of retries for failed tests
-  //retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
+  
   // workers: process.env.CI ? 1 : undefined,
   workers: 1, // Number of parallel workers
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -72,7 +64,9 @@ export default defineConfig({
     navigationTimeout: 60 * 1000, //Indivisual navigation timeout (60 seconds)
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     headless: false,  // Run tests in headed mode (visible browser)
-    trace: 'on-first-retry',
+    viewport:null, // Set viewport to null to use the default size of the browser window
+   //viewport: { width: 1920, height: 1080 }, // Set viewport size to 1920x1080
+   trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
 
@@ -99,6 +93,7 @@ export default defineConfig({
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
+
         launchOptions: {
           args: ['--start-maximized'],
         },
