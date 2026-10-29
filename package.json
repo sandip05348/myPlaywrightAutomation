@@ -10,13 +10,10 @@
   "devDependencies": {
     "@playwright/test": "^1.64.1",
     "@types/node": "^26.6.5",
+    "allure": "^3.22.1",
     "allure-playwright": "^3.14.0"
   },
-  "scripts": {
-    "allure:generate": "allure generate allure-results --clean -o reports/allure-report",
-    "allure:open": "allure open reports/allure-report",
-    "test:report": "playwright test & allure generate allure-results --clean -o reports/allure-report && allure open reports/allure-report"
-  },
+  "scripts": {},
   "dependencies": {
     "winston": "^3.19.0"
   }
