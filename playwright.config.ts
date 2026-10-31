@@ -15,7 +15,7 @@ const allureResultsFolder = path.join('allure-results', testEnv);
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  timeout: 900000, // Global timeout for each test (5 minutes)
+  timeout: 60000, // Global timeout for each test (5 minutes)
   testDir: './.',  
   expect: {
     timeout:10000  // Maximum time expect() should wait for the condition to be met (5 seconds)
